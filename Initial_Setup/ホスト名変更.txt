@@ -1,0 +1,7 @@
+【ホスト名変更】
+
+■ 一時的に変更
+$ sudo hostname < HOSTNAME >
+
+■ 恒久的に変更
+$ sudo hostnamectl set-hostname < HOSTNAME >

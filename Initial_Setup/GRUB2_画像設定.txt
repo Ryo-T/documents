@@ -1,0 +1,20 @@
+【GRUB2の設定】
+
+GRUB2の設定ファイルの本体は"/boot/grub2/grub.cfg"
+↑ これを直接編集はダメ
+
+設定をイジれるファイルは"/etc/default/grub"
+
+ここに画像を表示させる設定を書く
+
+
+$sudo cp /etc/default/grub /etc/default/grub.org //念の為初期設定のバックアップ
+$sudo vi /etc/default/grub
+---追記---
+GRUB_TERMINAL=gfxterm
+GRUB_BACKGROUND=path_to_the_image.png
+----------
+
+$sudo cp /boot/grub2/grub.cfg /boot/grub2/grub.cfg.org
+$sudo grub2-mkconfig -o /boot/grub2/grub.cfg //設定の反映
+$sudo shutdown -r now
