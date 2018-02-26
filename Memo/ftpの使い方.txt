@@ -1,0 +1,101 @@
+【FTPの使い方】
+
+■ インストール(サーバ)
+
+$ sudo yum -y install vsftpd
+$ sudo cp /etc/vsftpd/vfftpd.conf /etc/vsftpd/vsftpd.conf.org
+$ sudo vi /etc/vsftpd/vsftpd.conf
+
+
+■ 設定ファイル編集
+
+----------------------------------------
+# 12行目：匿名ログイン禁止
+anonymous_enable=NO
+
+# 82,83行目：コメント解除 ( アスキーモードでの転送を許可 )
+ascii_upload_enable=YES
+ascii_download_enable=YES
+
+# 100,101行目：コメント解除 ( chroot有効 )
+chroot_local_user=YES
+chroot_list_enable=YES
+
+# 103行目：コメント解除 ( chroot リストファイル指定 )
+chroot_list_file=/etc/vsftpd/chroot_list
+
+# 109行目：コメント解除 ( ディレクトリごと一括での転送有効 )
+ls_recurse_enable=YES
+
+# 114行目：変更 ( IPv4をリスンする )
+listen=YES
+
+# 123行目：変更 ( もし不要なら IPv6 はリスンしない )
+listen_ipv6=NO
+
+# 最終行へ追記
+
+# ルートディレクトリ指定 (指定しない場合はホームディレクトリがルートディレクトリとなる)
+local_root=public_html
+
+# ローカルタイムを使う
+use_localtime=YES
+
+# seccomp filter をオフにする ( ログインに失敗する場合はオフにする )
+seccomp_sandbox=NO
+----------------------------------------
+
+$ sudo vi /etc/vsftpd/chroot_list
+---追加---
+# chroot を適用しない (上層への cd を許可する) ユーザーを追加
+ryo
+----------
+
+$ sudo systemctl start vsftpd 
+$ sudo systemctl enable vsftpd 
+
+■ firewalldの設定
+$ sudo firewall-cmd --add-service=ftp --permanent 
+$ sudo firewall-cmd --reload
+
+■ SELinuxの設定(使用していれば)
+$ sudo setsebool -P ftpd_full_access on 
+
+
+【使い方】
+
+■ ftp起動
+> ftp
+
+■ 接続
+> open [ホスト名 or IP]
+> User name: [ユーザ名]
+> Password: [パスワード]
+
+■ サーバ側操作
+> ls
+> cd
+> pwd
+
+■ クライアント側操作
+> lcd     //ホームディレクトリへ移動
+> lcd C:￥ディレクトリ名] //ローカルのディレクトリ移動
+
+■ ダウンロード
+> get [ファイル名]
+> mget *  //一括ダウンロード
+
+■ アップロード
+> put [ファイル名]
+> mput *  //一括アップロード
+
+■ モード変更
+> ascii  //textなどはASCIIモードでok
+> binary //エクセルファイルなどはbinaryモードで操作
+
+■ 終了
+> bye
+
+
+
+

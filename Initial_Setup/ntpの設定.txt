@@ -1,0 +1,30 @@
+【ntpの設定】
+
+■ はじめに
+CentOS7はデフォルトでntpdではなくてchronydが使われている
+使い方はntpdとほぼ変わらず
+
+■ 設定
+
+$ cp /etc/chrony.conf /etc/chrony.conf.org
+$ vi /etc/chrony.conf
+
+---変更---
+#server 0.centos.pool.ntp.org iburst # コメントアウト
+#server 1.centos.pool.ntp.org iburst # コメントアウト
+#server 2.centos.pool.ntp.org iburst # コメントアウト
+#server 3.centos.pool.ntp.org iburst # コメントアウト
+#以下追記
+server ntp1.jst.mfeed.ad.jp iburst
+server ntp2.jst.mfeed.ad.jp iburst
+server ntp3.jst.mfeed.ad.jp iburst
+---------
+
+■ サービスの再起動
+$ sudo systemctl restart chronyd.service
+$ sudo systemctl enable chronyd.service
+
+■ 設定の確認
+$ chronyc sources 
+
+

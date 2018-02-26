@@ -1,0 +1,15 @@
+【SELinuxの無効化】
+
+■ 現在の設定を確認
+$getenforce
+
+■ 無効化
+$vi /etc/sysconfig/selinux
+
+---変更---
+SELINUX=enabled
+SELINUX=disabled
+----------
+
+$sudo shutdown -r now
+

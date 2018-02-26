@@ -1,0 +1,6 @@
+perl
+net-tools
+yum-plugin-priorities
+epel-release
+centos-release-scl-rh 
+centos-release-scl
