@@ -1,0 +1,26 @@
+Dockerの使い方
+
+■ インストール
+$ yum install docker
+
+■ デーモン設定
+$ systemctl start docker
+$ systemctl enable docker
+
+■ イメージをダウンロード
+$ docker pull centos (公式からcentosをダウンロード)
+
+■ Dockerを立ち上げてコンソールに入る
+$ docker run -i -t centos /bin/bash
+
+■  コンソールを抜ける
+$ Ctrl + p -> Ctrl + q
+
+■  動いているコンテナの確認
+$ docker ps
+
+■ Dコンテナへ再接続
+$ docker attach [PID]
+
+■  コンテナのプロセスを終了
+$ docker kill [PID]
