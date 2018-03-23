@@ -10,8 +10,12 @@ $ systemctl enable docker
 ■ イメージをダウンロード
 $ docker pull centos (公式からcentosをダウンロード)
 
-■ Dockerを立ち上げてコンソールに入る
-$ docker run -i -t centos /bin/bash
+■ Dイメージからコンテナを立ち上げてコンソールに入る (通常権限)
+$ docker run --name [コンテナ名(任意)]-i -t [イメージ名] /bin/bash
+
+■  イメージからコンテナを立ち上げてコンソールに入る (特権モード)
+$ docker run --privileged --name [コンテナ名(任意)] -d [イメージ名] /sbin/init
+$ docker exec -ti centos /bin/bash
 
 ■  コンソールを抜ける
 $ Ctrl + p -> Ctrl + q
@@ -22,5 +26,17 @@ $ docker ps
 ■ Dコンテナへ再接続
 $ docker attach [PID]
 
-■  コンテナのプロセスを終了
+■ コンテナのプロセスを停止
 $ docker kill [PID]
+
+■ コンテナを起動してログイン
+$ docker start -a [PID]
+
+■ コンテナの削除
+$ docker rm [コンテナ名]
+
+■  イメージの作成
+$ docker commit [コンテナ名] [イメージ名(任意)]
+
+■ イメージの削除
+$ docker rmi [イメージ名]
