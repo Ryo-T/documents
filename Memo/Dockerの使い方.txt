@@ -17,7 +17,8 @@ $ docker run --name [コンテナ名(任意)]-i -t [イメージ名] /bin/bash
 $ docker run --privileged --name [コンテナ名(任意)] -d [イメージ名] /sbin/init
 $ docker exec -ti [コンテナ名 or IPD] /bin/bash
 
-■ docker run --name [コンテナ名] -d -p 8080:80 [イメージ名]
+■  外部の8080番ポートをコンテナの80番ポートへバインド
+$ docker run --name [コンテナ名] -d -p 8080:80 [イメージ名]
 
 ■  コンソールを抜ける
 $ Ctrl + p -> Ctrl + q
